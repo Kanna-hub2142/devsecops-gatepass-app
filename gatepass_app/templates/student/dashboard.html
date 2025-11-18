@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">Student Dashboard</h3>
+
+<div class="row">
+
+    <!-- Profile Section -->
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Your Profile</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Name:</strong> {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
+                <p><strong>Username:</strong> {{ profile.user.username }}</p>
+                <p><strong>Email:</strong> {{ profile.user.email }}</p>
+                <p><strong>Hostel:</strong> {{ profile.hostel }}</p>
+                <p><strong>Phone:</strong> {{ profile.phone }}</p>
+
+                <a href="{% url 'student_profile_update' %}" class="btn btn-outline-primary w-100 mt-2">
+                    Edit Profile
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Gate Passes -->
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white d-flex justify-content-between">
+                <h5 class="mb-0">Recent Gate Pass Requests</h5>
+                <a href="{% url 'apply_pass' %}" class="btn btn-light btn-sm">Apply New Pass</a>
+            </div>
+
+            <div class="card-body">
+
+                {% if recent %}
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>ID</th>
+                                    <th>From</th>
+                                    <th>To</th>
+                                    <th>Status</th>
+                                    <th>Applied At</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for pass in recent %}
+                                <tr>
+                                    <td>{{ pass.id }}</td>
+                                    <td>{{ pass.from_datetime|date:"d-m-Y H:i" }}</td>
+                                    <td>{{ pass.to_datetime|date:"d-m-Y H:i" }}</td>
+
+                                    <td>
+                                        {% if pass.status == 'P' %}
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                        {% elif pass.status == 'A' %}
+                                            <span class="badge bg-success">Approved</span>
+                                        {% else %}
+                                            <span class="badge bg-danger">Rejected</span>
+                                        {% endif %}
+                                    </td>
+
+                                    <td>{{ pass.applied_at|date:"d-m-Y H:i" }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                {% else %}
+                    <p class="text-muted">No gate pass requests yet.</p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">Hostel Management</h3>
+
+<div class="d-flex justify-content-between mb-3">
+    <h5 class="mb-0">Hostels</h5>
+    <a href="{% url 'hostel_add' %}" class="btn btn-success">Add Hostel</a>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-body">
+
+        {% if hostels %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th style="width: 180px;">Actions</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for hostel in hostels %}
+                    <tr>
+                        <td>{{ hostel.id }}</td>
+                        <td>{{ hostel.name }}</td>
+
+                        <td>
+                            <a href="{% url 'hostel_edit' hostel.id %}" class="btn btn-primary btn-sm">
+                                Edit
+                            </a>
+                            <a href="{% url 'hostel_delete' hostel.id %}"
+                               class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to delete this hostel?');">
+                                Delete
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+        {% else %}
+            <p class="text-muted">No hostels found. Add one above.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

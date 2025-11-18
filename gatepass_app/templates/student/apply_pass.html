@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">Apply for Gate Pass</h3>
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Gate Pass Application</h5>
+            </div>
+
+            <div class="card-body">
+
+                <form method="post">
+                    {% csrf_token %}
+
+                    <div class="mb-3">
+                        <label class="form-label">Reason</label>
+                        {{ form.reason }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">From (Date & Time)</label>
+                        {{ form.from_datetime }}
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">To (Date & Time)</label>
+                        {{ form.to_datetime }}
+                    </div>
+
+                    <button type="submit" class="btn btn-success w-100 mt-2">
+                        Submit Request
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

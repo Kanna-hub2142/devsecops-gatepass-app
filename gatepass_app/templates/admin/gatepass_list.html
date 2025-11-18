@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">Gate Pass Management</h3>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">All Gate Pass Requests</h5>
+    </div>
+
+    <div class="card-body">
+
+        {% if passes %}
+        <div class="table-responsive">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Student</th>
+                        <th>Hostel</th>
+                        <th>Reason</th>
+                        <th>From</th>
+                        <th>To</th>
+                        <th>Status</th>
+                        <th style="width: 160px;">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in passes %}
+                    <tr>
+                        <td>{{ p.id }}</td>
+                        <td>{{ p.student.user.get_full_name }}</td>
+                        <td>{{ p.student.hostel }}</td>
+                        <td>{{ p.reason|truncatechars:30 }}</td>
+                        <td>{{ p.from_datetime|date:"d-m-Y H:i" }}</td>
+                        <td>{{ p.to_datetime|date:"d-m-Y H:i" }}</td>
+
+                        <td>
+                            {% if p.status == "P" %}
+                                <span class="badge bg-warning text-dark">Pending</span>
+                            {% elif p.status == "A" %}
+                                <span class="badge bg-success">Approved</span>
+                            {% else %}
+                                <span class="badge bg-danger">Rejected</span>
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if p.status == "P" %}
+                                <a href="{% url 'admin_gatepass_approve' p.id %}"
+                                   class="btn btn-success btn-sm">Approve</a>
+
+                                <a href="{% url 'admin_gatepass_reject' p.id %}"
+                                   class="btn btn-danger btn-sm">Reject</a>
+                            {% else %}
+                                <span class="text-muted">No actions</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+            <p class="text-muted">No gate pass requests found.</p>
+        {% endif %}
+
+    </div>
+</div>
+
+{% endblock %}

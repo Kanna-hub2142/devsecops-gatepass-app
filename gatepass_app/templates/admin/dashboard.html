@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h3 class="mb-4">Admin Dashboard</h3>
+
+<div class="row">
+
+    <!-- Total Students -->
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h5>Total Students</h5>
+                <h2 class="text-primary">{{ total_students }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Total Passes -->
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h5>Total Gate Passes</h5>
+                <h2 class="text-success">{{ total_passes }}</h2>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests -->
+    <div class="col-md-4">
+        <div class="card shadow-sm text-center">
+            <div class="card-body">
+                <h5>Pending Requests</h5>
+                <h2 class="text-warning">{{ pending }}</h2>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<hr class="my-4">
+
+<!-- Management Section -->
+<h4 class="mb-3">Management</h4>
+
+<div class="row">
+
+    <div class="col-md-4">
+        <a href="{% url 'hostel_list' %}" class="text-decoration-none">
+            <div class="card shadow-sm p-3 text-center">
+                <h5 class="mb-0">Manage Hostels</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="/djadmin/" class="text-decoration-none">
+            <div class="card shadow-sm p-3 text-center">
+                <h5 class="mb-0">Django Admin</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{% url 'admin_dashboard' %}" class="text-decoration-none">
+            <div class="card shadow-sm p-3 text-center bg-light">
+                <h5 class="mb-0">Refresh Dashboard</h5>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4">
+        <a href="{% url 'admin_gatepass_list' %}" class="text-decoration-none">
+            <div class="card shadow-sm p-3 text-center">
+                <h5 class="mb-0">Gate Pass Requests</h5>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
