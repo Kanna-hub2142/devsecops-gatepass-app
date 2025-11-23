@@ -129,8 +129,7 @@ pipeline {
                 string(credentialsId: 'DB_PASSWORD',  variable: 'DB_PASSWORD'),
                 string(credentialsId: 'DB_HOST',  variable: 'DB_HOST'),
                 string(credentialsId: 'DB_PORT',  variable: 'DB_PORT'),
-                string(credentialsId: 'DB_NAME',  variable: 'DB_NAME'),
-                string(credentialsId: 'DATABASE_URL',  variable: 'DATABASE_URL')
+                string(credentialsId: 'DB_NAME',  variable: 'DB_NAME')
                 ]) {
                 sh """
                     docker run -d \\
@@ -145,7 +144,6 @@ pipeline {
                     -e DB_PORT=${DB_PORT} \\
                     -e DB_USER=${DB_USER} \\
                     -e DB_PASSWORD=${DB_PASSWORD} \\
-                    -e DATABASE_URL=${DATABASE_URL} \\
                     -p 8000:8000 \\
                     knnkshr/${DOCKER_IMAGE_NAME}:latest
                 """
